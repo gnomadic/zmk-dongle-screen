@@ -111,16 +111,15 @@ int zmk_widget_output_status_init(struct zmk_widget_output_status *widget, lv_ob
 {
     widget->obj = lv_obj_create(parent);
     lv_obj_set_size(widget->obj, LV_SIZE_CONTENT, LV_SIZE_CONTENT);
-    lv_obj_align(widget->obj, LV_ALIGN_TOP_RIGHT, -10, 10);
     
-    // Add light green bounding box with rounded corners and background
+    // Add soft pastel mint bounding box with rounded corners and background
     lv_obj_set_style_border_width(widget->obj, 1, 0);
-    lv_obj_set_style_border_color(widget->obj, lv_palette_main(LV_PALETTE_LIGHT_GREEN), 0);
+    lv_obj_set_style_border_color(widget->obj, lv_color_hex(0xB8E6B8), 0);
     lv_obj_set_style_border_opa(widget->obj, LV_OPA_COVER, 0);
     lv_obj_set_style_radius(widget->obj, 15, 0);
     lv_obj_set_style_pad_hor(widget->obj, 12, 0);
     lv_obj_set_style_pad_ver(widget->obj, 8, 0);
-    lv_obj_set_style_bg_color(widget->obj, lv_palette_main(LV_PALETTE_LIGHT_GREEN), 0);
+    lv_obj_set_style_bg_color(widget->obj, lv_color_hex(0xE8F5E8), 0);
     lv_obj_set_style_bg_opa(widget->obj, LV_OPA_COVER, 0);
 
     widget->transport_label = lv_label_create(widget->obj);
