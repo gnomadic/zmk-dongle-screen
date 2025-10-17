@@ -47,7 +47,7 @@ static void set_status_symbol(struct zmk_widget_output_status *widget, struct ou
 {
     const char *ble_color = "ffffff";
     const char *usb_color = "ffffff";
-    char transport_text[50] = {};
+    char transport_text[25] = {};
     if (state.usb_is_hid_ready == 0)
     {
         usb_color = "ff0000";
@@ -73,10 +73,10 @@ static void set_status_symbol(struct zmk_widget_output_status *widget, struct ou
     switch (state.selected_endpoint.transport)
     {
     case ZMK_TRANSPORT_USB:
-        snprintf(transport_text, sizeof(transport_text), "> #%s USB#\n#%s BLE# %d", usb_color, ble_color, state.active_profile_index + 1);
+        snprintf(transport_text, sizeof(transport_text), "#%s USB#", usb_color);
         break;
     case ZMK_TRANSPORT_BLE:
-        snprintf(transport_text, sizeof(transport_text), "#%s USB#\n> #%s BLE# %d" , usb_color, ble_color, state.active_profile_index + 1);
+        snprintf(transport_text, sizeof(transport_text), "#%s BLE# %d", ble_color, state.active_profile_index + 1);
         break;
     }
 
@@ -110,16 +110,17 @@ ZMK_SUBSCRIPTION(widget_output_status, zmk_usb_conn_state_changed);
 int zmk_widget_output_status_init(struct zmk_widget_output_status *widget, lv_obj_t *parent)
 {
     widget->obj = lv_obj_create(parent);
-    lv_obj_set_size(widget->obj, 240, 77);
+    lv_obj_set_size(widget->obj, LV_SIZE_CONTENT, LV_SIZE_CONTENT);
     
     // Add light gray bounding box with rounded corners
     lv_obj_set_style_border_width(widget->obj, 1, 0);
     lv_obj_set_style_border_color(widget->obj, lv_color_hex(0xC0C0C0), 0);
     lv_obj_set_style_border_opa(widget->obj, LV_OPA_COVER, 0);
-    lv_obj_set_style_radius(widget->obj, 5, 0);
+    lv_obj_set_style_radius(widget->obj, 15, 0);
+    lv_obj_set_style_pad_all(widget->obj, 8, 0);
 
     widget->transport_label = lv_label_create(widget->obj);
-    lv_obj_align(widget->transport_label, LV_ALIGN_TOP_RIGHT, -10, 10);
+    lv_obj_align(widget->transport_label, LV_ALIGN_CENTER, 0, 0);
 
     // widget->ble_label = lv_label_create(widget->obj);
     // lv_obj_align(widget->ble_label, LV_ALIGN_TOP_RIGHT, -10, 56);
